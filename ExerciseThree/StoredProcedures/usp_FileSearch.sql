@@ -33,5 +33,5 @@ BEGIN
 	FROM CTE 
 	WHERE		@criteria IS NULL 
 				OR [Path] LIKE '%' + @criteria + '%' 
-	ORDER BY	LEN([Path]) DESC
+	ORDER BY	LEN([Path]) ASC
 END

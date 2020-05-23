@@ -7,7 +7,7 @@ GO
 
 SET IDENTITY_INSERT [dbo].[FileSystem] ON 
 GO
-INSERT INTO [FileSystem] ([Id], [Name], [FileSystemTypeId], [ParentId], [IsReadOnly], [Size]) VALUES (1, 'C:', 1, NULL, 0, 250000000)
+INSERT INTO [FileSystem] ([Id], [Name], [FileSystemTypeId], [ParentId], [IsReadOnly], [Size]) VALUES (1, 'C:\', 1, NULL, 0, 250000000)
 GO
 INSERT INTO [FileSystem] ([Id], [Name], [FileSystemTypeId], [ParentId], [IsReadOnly]) VALUES 
 (2, 'Folder A', 2, 1, 0),

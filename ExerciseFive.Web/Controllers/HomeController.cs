@@ -4,6 +4,8 @@ using ExerciseFive.Service.FileSystems;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web.Http;
+using System.Web.Http.Results;
 using System.Web.Mvc;
 
 namespace ExerciseFive.Web.Controllers
@@ -17,20 +19,15 @@ namespace ExerciseFive.Web.Controllers
             _fileSystemService = fileSystemService;
         }
 
-        public class SearchResult
+        public ActionResult Index()
         {
-            public string Criteria { get; set; }
-            public BaseResponse<List<FileSystemSearch>> Response { get; set; }
+            return View();
         }
 
-        [HttpGet]
-        public async Task<ActionResult> Index(string criteria = null)
+        [System.Web.Mvc.HttpGet]
+        public async Task<JsonResult> Search([FromUri]string criteria)
         {
-            return View(new SearchResult
-            {
-                Criteria = criteria,
-                Response = await _fileSystemService.SearchFileSystemsAsync(criteria)
-        });
+            return Json(await _fileSystemService.SearchFileSystemsAsync(criteria), JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -2,47 +2,205 @@
     ViewBag.Title = "Home Page";
 }
 
+@section styles {
+    <style>
+        .col-header {
+            cursor: pointer;
+            border-top: 3px solid !important;
+            border-bottom: 3px solid !important;
+            border-color: var(--white);
+        }
+
+        .col-header.asc {
+            border-top-color: var(--blue)!important;
+        }
+
+        .col-header.desc {
+            border-bottom-color: var(--blue)!important;
+        }
+
+        .file-link {
+            color: var(--blue);
+            text-decoration: underline;
+            cursor: pointer;
+        }
+    </style>
+}
+
 <h3>File System</h3>
-@using (Html.BeginForm("Index", "Home", FormMethod.Get))
-{ 
-    <div class="row">
-        <div class="col-4">
-            <input name="criteria" class="form-control" type="text" value="@Model.Criteria" />
-        </div>
-        <div class="col-4">
-            <button class="ml-3 btn btn-success">Search</button>
-        </div>
+<div class="row">
+    <div class="col-12">
+        <form id="form-search" class="d-flex align-items-center">
+            <input id="input-criteria" class="form-control d-inline-block" type="text" />
+            <button id="btn-submit" class="ml-3 btn btn-success" type="submit">Search</button>
+        </form>        
     </div>
-    <div class="row">
-        <div class="col-12 table-responsive">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Path</th>
-                        <th>Filename</th>
-                        <th>Read Only</th>
-                        <th>Size</th>
-                        <th>Created Date</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @if (Model?.Response?.Data != null)
-                    {
-                        foreach (var d in Model.Response.Data)
-                        {
-                            <tr>
-                                <td>@d.Id</td>
-                                <td>@d.Path</td>
-                                <td>@d.Name</td>
-                                <td>@(d.IsReadOnly ? "Yes" : "No")</td>
-                                <td>@d.Size</td>
-                                <td>@d.CreatedDate.ToString()</td>
-                            </tr>
-                        }
+</div>
+<div class="row mt-3">
+    <div class="col-12 table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th class="col-header" data-key="Id" data-type="number">Id</th>
+                    <th class="col-header" data-key="Path" data-type="string">Path</th>
+                    <th class="col-header" data-key="Name" data-type="string">Filename</th>
+                    <th class="col-header" data-key="IsReadOnly" data-type="bool">Read Only</th>
+                    <th class="col-header" data-key="Size" data-type="number">Size</th>
+                    <th class="col-header" data-key="CreatedDateString" data-type="date">Created Date</th>
+                </tr>
+            </thead>
+            <tbody id="table-body">
+                <tr><td colspan="6" ><div class="d-flex justify-content-center w-100">Loading...</div></td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            var _inputCriteria = $('#input-criteria');
+            var _btnSubmit = $('#btn-submit');
+            var _tableBody = $('#table-body');
+            var _dataArray = [];
+            var _sortOptions = {
+                isAscending: true,
+                key: null,
+                valueType: null
+            };
+
+            async function search(criteria) {
+                const response = await fetch(`/Home/Search?criteria=${criteria}`, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json'
                     }
-                </tbody>
-            </table>
-        </div>
-    </div>
+                });
+
+                return response.json();
+            }
+
+            function dateStringToFormattedDateString(dateString) {
+                var returnString = '';
+
+                var d = new Date(dateString);
+                returnString += d.getMonth() < 10 ? `0${d.getMonth()}-` : `${d.getMonth()}-`;
+                returnString += d.getDate() < 10 ? `0${d.getDate()}-` : `${d.getDate()}-`;
+                returnString += `${d.getFullYear()} `;
+                returnString += d.getHours() < 10 ? `0${d.getHours()}:` : `${d.getHours()}:`;
+                returnString += d.getMinutes() < 10 ? `0${d.getMinutes()}:` : `${d.getMinutes()}:`;
+                returnString += d.getSeconds() < 10 ? `0${d.getSeconds()}` : `${d.getSeconds()}`;
+
+                return returnString;
+            }
+
+            function dataArraySortAscending(a, b) {
+                if (a[_sortOptions.key] > b[_sortOptions.key]) return 1;
+                if (a[_sortOptions.key] < b[_sortOptions.key]) return -1;
+
+                return 0;
+            }
+
+            function dataArraySortDescending(a, b) {
+                if (a[_sortOptions.key] > b[_sortOptions.key]) return -1;
+                if (a[_sortOptions.key] < b[_sortOptions.key]) return 1;
+
+                return 0;
+            }
+
+            function dataArraySortDateAscending(a, b) {
+                var da = new Date(a[_sortOptions.key]);
+                var db = new Date(b[_sortOptions.key]);
+
+                if (da > db) return 1;
+                if (da < db) return -1;
+
+                return 0;
+            }
+
+            function dataArraySortDateDescending(a, b) {
+                var da = new Date(a[_sortOptions.key]);
+                var db = new Date(b[_sortOptions.key]);
+
+                if (da > db) return -1;
+                if (da < db) return 1;
+
+                return 0;
+            }
+
+            function renderData() {
+                _tableBody.empty();
+                _tableBody.append('<tr><td colspan="6" ><div class="d-flex justify-content-center w-100">Loading...</div></td></tr>');
+
+                var tempData;
+                if (_sortOptions && _sortOptions.key) {
+                    
+                    if (_sortOptions.valueType === 'bool') {
+                        tempData = _sortOptions.isAscending ? _dataArray.sort(dataArraySortDescending) : tempData = _dataArray.sort(dataArraySortAscending);
+                    }
+                    else if (_sortOptions.valueType === 'date') {
+                        tempData = _sortOptions.isAscending ? _dataArray.sort(dataArraySortDateAscending) : tempData = _dataArray.sort(dataArraySortDateDescending);
+                    }
+                    else {
+                        tempData = _sortOptions.isAscending ? _dataArray.sort(dataArraySortAscending) : tempData = _dataArray.sort(dataArraySortDescending);
+                    }
+                }
+                else {
+                    tempData = _dataArray;
+                }
+
+                var html = '';
+                tempData.forEach(x => {
+                    html += '<tr>';
+                    html += `<td>${x.Id}</td>`;
+                    html += `<td>${x.Path}</td>`;
+                    html += `<td class="file-link" data-path="${x.Path}">${x.Name}</td>`;
+                    html += `<td>${x.IsReadOnly ? 'Yes' : 'No'}</td>`;
+                    html += `<td>${x.Size ? x.Size : ''}</td>`;
+                    html += `<td>${dateStringToFormattedDateString(x.CreatedDateString)}</td>`;
+                    html += '</tr>';
+                });
+
+                _tableBody.empty();
+                _tableBody.append(html);
+
+                $('.file-link').click(function (e) {
+                    window.open(`file://${e.currentTarget.dataset.path}`, true); // not possible because if it is, it is a big security risk
+                });
+            }            
+
+            _btnSubmit.click(function (e) {
+                e.preventDefault();
+                search(_inputCriteria.val())
+                    .then(result => {
+                        if (result.hasErrors) {
+                            alert(result.Errors[0].Message);
+                        }
+                        else {
+                            _dataArray = result.Data;
+                            renderData();
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        alert('Error');
+                    });
+            });
+
+            $('.col-header').click(function (e) {
+                var setAsDescending = e.currentTarget.className.indexOf('asc') >= 0;
+
+                $('.col-header').removeClass('asc');
+                $('.col-header').removeClass('desc');
+
+                e.currentTarget.classList.add(setAsDescending ? 'desc' : 'asc');
+                _sortOptions.key = e.currentTarget.dataset.key;
+                _sortOptions.valueType = e.currentTarget.dataset.type;
+                _sortOptions.isAscending = !setAsDescending;
+                renderData();
+            });
+
+            _btnSubmit.click();
+        });
+    </script>
 }
