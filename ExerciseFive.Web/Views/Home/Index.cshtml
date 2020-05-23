@@ -1,0 +1,48 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<h3>File System</h3>
+@using (Html.BeginForm("Index", "Home", FormMethod.Get))
+{ 
+    <div class="row">
+        <div class="col-4">
+            <input name="criteria" class="form-control" type="text" value="@Model.Criteria" />
+        </div>
+        <div class="col-4">
+            <button class="ml-3 btn btn-success">Search</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Path</th>
+                        <th>Filename</th>
+                        <th>Read Only</th>
+                        <th>Size</th>
+                        <th>Created Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model?.Response?.Data != null)
+                    {
+                        foreach (var d in Model.Response.Data)
+                        {
+                            <tr>
+                                <td>@d.Id</td>
+                                <td>@d.Path</td>
+                                <td>@d.Name</td>
+                                <td>@(d.IsReadOnly ? "Yes" : "No")</td>
+                                <td>@d.Size</td>
+                                <td>@d.CreatedDate.ToString()</td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}

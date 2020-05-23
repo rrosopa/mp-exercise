@@ -1,0 +1,6 @@
+D:\Users\RJ\Documents\projects\Exercise-MP\ExerciseFive.Core\bin\Debug\ExerciseFive.Core.dll
+D:\Users\RJ\Documents\projects\Exercise-MP\ExerciseFive.Core\bin\Debug\ExerciseFive.Core.pdb
+D:\Users\RJ\Documents\projects\Exercise-MP\ExerciseFive.Core\obj\Debug\ExerciseFive.Core.csprojAssemblyReference.cache
+D:\Users\RJ\Documents\projects\Exercise-MP\ExerciseFive.Core\obj\Debug\ExerciseFive.Core.csproj.CoreCompileInputs.cache
+D:\Users\RJ\Documents\projects\Exercise-MP\ExerciseFive.Core\obj\Debug\ExerciseFive.Core.dll
+D:\Users\RJ\Documents\projects\Exercise-MP\ExerciseFive.Core\obj\Debug\ExerciseFive.Core.pdb

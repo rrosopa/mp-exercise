@@ -1,0 +1,13 @@
+D:\Users\RJ\Documents\projects\Exercise-MP\ExerciseTwo\bin\Debug\netcoreapp3.1\ExerciseTwo.exe
+D:\Users\RJ\Documents\projects\Exercise-MP\ExerciseTwo\bin\Debug\netcoreapp3.1\ExerciseTwo.deps.json
+D:\Users\RJ\Documents\projects\Exercise-MP\ExerciseTwo\bin\Debug\netcoreapp3.1\ExerciseTwo.runtimeconfig.json
+D:\Users\RJ\Documents\projects\Exercise-MP\ExerciseTwo\bin\Debug\netcoreapp3.1\ExerciseTwo.runtimeconfig.dev.json
+D:\Users\RJ\Documents\projects\Exercise-MP\ExerciseTwo\bin\Debug\netcoreapp3.1\ExerciseTwo.dll
+D:\Users\RJ\Documents\projects\Exercise-MP\ExerciseTwo\bin\Debug\netcoreapp3.1\ExerciseTwo.pdb
+D:\Users\RJ\Documents\projects\Exercise-MP\ExerciseTwo\obj\Debug\netcoreapp3.1\ExerciseTwo.csprojAssemblyReference.cache
+D:\Users\RJ\Documents\projects\Exercise-MP\ExerciseTwo\obj\Debug\netcoreapp3.1\ExerciseTwo.csproj.CoreCompileInputs.cache
+D:\Users\RJ\Documents\projects\Exercise-MP\ExerciseTwo\obj\Debug\netcoreapp3.1\ExerciseTwo.AssemblyInfoInputs.cache
+D:\Users\RJ\Documents\projects\Exercise-MP\ExerciseTwo\obj\Debug\netcoreapp3.1\ExerciseTwo.AssemblyInfo.cs
+D:\Users\RJ\Documents\projects\Exercise-MP\ExerciseTwo\obj\Debug\netcoreapp3.1\ExerciseTwo.dll
+D:\Users\RJ\Documents\projects\Exercise-MP\ExerciseTwo\obj\Debug\netcoreapp3.1\ExerciseTwo.pdb
+D:\Users\RJ\Documents\projects\Exercise-MP\ExerciseTwo\obj\Debug\netcoreapp3.1\ExerciseTwo.genruntimeconfig.cache
