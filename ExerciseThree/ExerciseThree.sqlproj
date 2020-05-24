@@ -66,6 +66,9 @@
     <Build Include="StoredProcedures\usp_FileSearch.sql" />
   </ItemGroup>
   <ItemGroup>
-    <PostDeploy Include="InitialData\Script.PostDeployment1.sql" />
+    <PostDeploy Include="InitialData\postScript.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="CompiledScript.sql" />
   </ItemGroup>
 </Project>

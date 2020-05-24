@@ -154,7 +154,7 @@
                     html += '<tr>';
                     html += `<td>${x.Id}</td>`;
                     html += `<td>${x.Path}</td>`;
-                    html += `<td class="file-link" data-path="${x.Path}">${x.Name}</td>`;
+                    html += x.FileSystemTypeId === 3 ? `<td class="file-link" data-path="${x.Path}">${x.Name}</td>` : `<td>${x.Name}</td>`;
                     html += `<td>${x.IsReadOnly ? 'Yes' : 'No'}</td>`;
                     html += `<td>${x.Size ? x.Size : ''}</td>`;
                     html += `<td>${dateStringToFormattedDateString(x.CreatedDateString)}</td>`;
@@ -165,7 +165,7 @@
                 _tableBody.append(html);
 
                 $('.file-link').click(function (e) {
-                    window.open(`file://${e.currentTarget.dataset.path}`, true); // not possible because if it is, it is a big security risk
+                    window.open(`/Home/DownloadFile?localFilePath=${e.currentTarget.dataset.path}`, true); 
                 });
             }            
 

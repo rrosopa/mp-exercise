@@ -1,11 +1,7 @@
-﻿using ExerciseFive.Core.Models;
-using ExerciseFive.Data.Models.FileSystems;
-using ExerciseFive.Service.FileSystems;
-using System.Collections.Generic;
+﻿using ExerciseFive.Service.FileSystems;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
-using System.Web.Http.Results;
 using System.Web.Mvc;
 
 namespace ExerciseFive.Web.Controllers
@@ -28,6 +24,17 @@ namespace ExerciseFive.Web.Controllers
         public async Task<JsonResult> Search([FromUri]string criteria)
         {
             return Json(await _fileSystemService.SearchFileSystemsAsync(criteria), JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult DownloadFile([FromUri]string localFilePath)
+        {
+            if (System.IO.File.Exists(localFilePath))
+            {
+                var fileBytes = System.IO.File.ReadAllBytes(localFilePath);
+                return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, localFilePath.Split(new string[] { "/" }, System.StringSplitOptions.RemoveEmptyEntries).Last());
+            }
+
+            return new EmptyResult();
         }
     }
 }

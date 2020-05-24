@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30104.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExerciseOne", "ExerciseOne\ExerciseOne.csproj", "{7E1745CD-50BD-4D42-9D1D-8485FA82FBAC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExerciseOne", "ExerciseOne\ExerciseOne.csproj", "{7E1745CD-50BD-4D42-9D1D-8485FA82FBAC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExerciseTwo", "ExerciseTwo\ExerciseTwo.csproj", "{3C83A9E9-0B00-4DD3-9CD1-5468CA75E3BC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExerciseTwo", "ExerciseTwo\ExerciseTwo.csproj", "{3C83A9E9-0B00-4DD3-9CD1-5468CA75E3BC}"
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "ExerciseThree", "ExerciseThree\ExerciseThree.sqlproj", "{90867E21-AB4A-4CDE-8BCF-4BADDE08CE9B}"
 EndProject
